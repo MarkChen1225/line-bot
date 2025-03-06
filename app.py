@@ -1,8 +1,15 @@
+'''
 from flask import Flask, request, jsonify
 from linebot.v3.messaging import Configuration, MessagingApi, ReplyMessageRequest, TextMessage
 from linebot.v3.webhooks import WebhookHandler, MessageEvent, TextMessageContent
 import os
-
+'''
+import os
+from flask import Flask, request, abort
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot import LineBotApi
 app = Flask(__name__)
 
 # 環境變數
