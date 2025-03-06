@@ -20,6 +20,7 @@ from linebot.v3.webhooks import (
 )
 app = Flask(__name__)
 
+
 # 環境變數
 LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
@@ -28,7 +29,8 @@ if not LINE_CHANNEL_SECRET or not LINE_CHANNEL_ACCESS_TOKEN:
     raise ValueError("LINE_CHANNEL_SECRET or LINE_CHANNEL_ACCESS_TOKEN is not set.")
 
 # 設定 Line Bot API
-config = Configuration(access_token=LINE_CHANNEL_ACCESS_TOKEN)
+
+config = Configuration(channel_access_token=LINE_CHANNEL_ACCESS_TOKEN)
 messaging_api = MessagingApi(config)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
