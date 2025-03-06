@@ -30,7 +30,7 @@ if not LINE_CHANNEL_SECRET or not LINE_CHANNEL_ACCESS_TOKEN:
 
 # 設定 Line Bot API
 
-config = Configuration(channel_access_token=LINE_CHANNEL_ACCESS_TOKEN)
+config = Configuration(access_token=LINE_CHANNEL_ACCESS_TOKEN)
 messaging_api = MessagingApi(config)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
@@ -42,13 +42,21 @@ def home():
 def webhook():
     body = request.get_data(as_text=True)
     print("Received Webhook:", body)
-    
+    '''
     try:
         handler.handle(body, request.headers["X-Line-Signature"])
     except Exception as e:
         print("Error:", str(e))
     
     return "OK"
+'''
+    try:
+        handler.handle(body, request.headers["X-Line-Signature"])
+    except InvalidSignatureError:
+        return abort(400, "Invalid signature")
+    except Exception as e:
+        print("Error:", str(e))
+        return abort(500, "Internal Server Error")
 
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
