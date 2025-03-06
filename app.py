@@ -24,6 +24,9 @@ app = Flask(__name__)
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv('mAommaR0DDL27oD97MHfpiwxhpCNEsP6fg8KoygmXHG8mD87pTZPkWb35Npp/fNRBiFvgyWyK2DMEpMxd/r/iv/HAFeMScBE5J+U4g5R/6cS764PD5WCzvK6NFvF4dZn/iFjdoxaErQ4MgwgAFD4JwdB04t89/1O/w1cDnyilFU=')
 LINE_CHANNEL_SECRET = os.getenv("'41cdfcf882614b50b04fc95dacc69cef'")
 
+if not LINE_CHANNEL_SECRET or not LINE_CHANNEL_ACCESS_TOKEN:
+    raise ValueError("LINE_CHANNEL_SECRET or LINE_CHANNEL_ACCESS_TOKEN is not set.")
+
 # 設定 Line Bot API
 config = Configuration(access_token=LINE_CHANNEL_ACCESS_TOKEN)
 messaging_api = MessagingApi(config)
